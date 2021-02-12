@@ -4,13 +4,14 @@
 
 template <class _Ty, int _Cap = 1 << 10>
 class BinaryHeap {
+  using predicate_t = std::function<bool(_Ty, _Ty)>;
   std::array<_Ty, _Cap> data;
 
   // Position of the next item to be inserted
   int size;
 
   // Predicate according to which the heap will be ordered
-  const std::function<bool(_Ty, _Ty)> predicate;
+  const predicate_t predicate;
 
   int parent(int i) {
     return i > 0 ? (i - 1) / 2 : 0;
@@ -87,8 +88,8 @@ class BinaryHeap {
     return -1;
   }
 
- public:
-  BinaryHeap(std::function<bool(_Ty, _Ty)> _predicate = [](_Ty a, _Ty b) { return a < b; }) : predicate(_predicate) {
+public:
+  BinaryHeap(predicate_t _predicate = [](_Ty a, _Ty b) { return a < b; }) : predicate(_predicate) {
     size = 0;
   }
 
@@ -162,7 +163,7 @@ class BinaryHeap {
     return size == 0;
   }
 
-  std::array<_Ty, _Cap> view_data() {
-    return data;
+  _Ty* view_data() {
+    return &data[0];
   }
 };

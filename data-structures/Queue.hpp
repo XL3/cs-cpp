@@ -11,7 +11,7 @@ class Queue {
   // Position of the next item to be enqueued
   int back;
 
- public:
+public:
   Queue() {
     front = -1;
     back = 0;

@@ -6,7 +6,7 @@ class Stack {
   std::array<_Ty, _Cap> data;
   int top;
 
- public:
+public:
   Stack() {
     top = -1;
   }

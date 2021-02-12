@@ -1,5 +1,7 @@
 BasedOnStyle: Google
 
+AccessModifierOffset: '-2'
+
 BreakBeforeBraces: Custom
 BraceWrapping:
   BeforeElse: true
