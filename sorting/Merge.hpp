@@ -44,7 +44,7 @@ class Merge {
   }
 
 public:
-  // In-place
+  // Out-of-place
   static void sort(
     _Ty *data, size_t SIZE, predicate_t predicate = [](_Ty a, _Ty b) { return a < b; }) {
     std::vector<_Ty> merge_array(SIZE);

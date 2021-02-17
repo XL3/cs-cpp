@@ -1,6 +1,11 @@
 #pragma once
 
+#if defined(__GNUC__) || defined(__GNUG__)
 #include <cxxabi.h>
+#define TYPE_NAME(var) (abi::__cxa_demangle(typeid(_SortingAlgorithm).name(), NULL, NULL, NULL))
+#else
+#define TYPE_NAME(var) (typeid(_SortingAlgorithm).name())
+#endif
 
 #include <algorithm>
 #include <iostream>
@@ -100,7 +105,7 @@ void test_sort() {
   }
   std::random_shuffle(data.begin(), data.end());
 
-  print_array(&data[0], _Size, abi::__cxa_demangle(typeid(_SortingAlgorithm).name(), NULL, NULL, NULL));
+  print_array(&data[0], _Size, TYPE_NAME(_SortingAlgorithm));
   _SortingAlgorithm::sort(&data.front(), _Size);
   print_array(&data[0], _Size);
 }
