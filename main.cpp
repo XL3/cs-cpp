@@ -6,6 +6,7 @@
 #include "sorting/Insertion.hpp"
 #include "sorting/Merge.hpp"
 #include "sorting/Selection.hpp"
+#include "sorting/Quick.hpp"
 #include "tests.hpp"
 
 int main(int, char**) {
@@ -19,6 +20,7 @@ int main(int, char**) {
     test_sort<Heap<int>>();
     test_sort<Merge<int>>();
     test_sort<Counting>();
+    test_sort<Quick<int>>();
 
   } catch (const char* errmsg) {
     std::cerr << errmsg << std::endl;
