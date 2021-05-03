@@ -1,7 +1,7 @@
 #pragma once
 #include <array>
 
-template <class _Ty, int _Cap = 1 << 10>
+template <class _Ty = int, int _Cap = 1 << 10>
 class Queue {
   std::array<_Ty, _Cap> data;
 

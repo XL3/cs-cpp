@@ -1,3 +1,4 @@
+#pragma warning(disable : 4267)
 #include <iostream>
 
 #include "sorting/Bubble.hpp"
@@ -21,6 +22,7 @@ int main(int, char**) {
     test_sort<Merge<int>>();
     test_sort<Counting>();
     test_sort<Quick<int>>();
+    test_BST();
 
   } catch (const char* errmsg) {
     std::cerr << errmsg << std::endl;

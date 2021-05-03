@@ -2,8 +2,10 @@
 #include <array>
 #include <functional>
 
-template <class _Ty, int _Cap = 1 << 10>
-class BinaryHeap {
+#include "Binary_Tree.hpp"
+
+template <class _Ty = int, int _Cap = 1 << 10>
+class Binary_Heap : public BT_Array<_Ty> {
   using predicate_t = std::function<bool(_Ty, _Ty)>;
   std::array<_Ty, _Cap> data;
 
@@ -12,32 +14,6 @@ class BinaryHeap {
 
   // Predicate according to which the heap will be ordered
   const predicate_t predicate;
-
-  int parent(int i) {
-    return i > 0 ? (i - 1) / 2 : 0;
-  }
-
-  int lchild(int i) {
-    return (2 * i) + 1;
-  }
-
-  int rchild(int i) {
-    return (2 * i) + 2;
-  }
-
-  /**
-   * Every sibling in a level = (fs+1) + c [-1, 0, 1, 2, ...]
-   * First sibling = 2^(level) - 1
-   */
-  int fsibling(int i) {
-    i += 1;
-
-    // Zero-based highest exponent
-    int exp = 0;
-    while (i >>= 1) exp++;
-
-    return (1 << exp) - 1;
-  }
 
   void reheap_up(int node) {
     int p_node;
@@ -89,7 +65,7 @@ class BinaryHeap {
   }
 
 public:
-  BinaryHeap(predicate_t _predicate = [](_Ty a, _Ty b) { return a < b; }) : predicate(_predicate) {
+  Binary_Heap(predicate_t _predicate = [](_Ty a, _Ty b) { return a < b; }) : predicate(_predicate) {
     size = 0;
   }
 
@@ -98,7 +74,7 @@ public:
     return data[0];
   }
 
-  void insert(_Ty item) {
+  void insert_item(_Ty item) {
     if (size == _Cap) throw "Tried to insert into a full heap";
     int node = size++;
     data[node] = item;
@@ -120,7 +96,7 @@ public:
    * Merges another heap into the current heap if there's enough space
    */
   template <int _h_Cap>
-  void merge(BinaryHeap<_Ty, _h_Cap> bheap) {
+  void merge(Binary_Heap<_Ty, _h_Cap> bheap) {
     if (this->size + bheap.size > _Cap)
       throw "Tried to merge a heap with not enough available space";
 

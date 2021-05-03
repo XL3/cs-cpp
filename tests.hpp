@@ -2,15 +2,16 @@
 
 #if defined(__GNUC__) || defined(__GNUG__)
 #include <cxxabi.h>
-#define TYPE_NAME(var) (abi::__cxa_demangle(typeid(_SortingAlgorithm).name(), NULL, NULL, NULL))
+#define TYPE_NAME(var) (abi::__cxa_demangle(typeid(var).name(), NULL, NULL, NULL))
 #else
-#define TYPE_NAME(var) (typeid(_SortingAlgorithm).name())
+#define TYPE_NAME(var) (typeid(var).name())
 #endif
 
 #include <algorithm>
 #include <iostream>
 #include <string>
 
+#include "data-structures/BST.hpp"
 #include "data-structures/Heap.hpp"
 #include "data-structures/Queue.hpp"
 #include "data-structures/Stack.hpp"
@@ -31,7 +32,7 @@ void print_array(_Ty *data, size_t SIZE, std::string label = "") {
 template <size_t _Size = 5>
 void test_stack() {
   puts("Stack:");
-  Stack<int, _Size> stack;
+  Stack<int> stack;
   for (auto x: {0, 1, 2, 3, 4})
     stack.push(x);
 
@@ -46,7 +47,7 @@ void test_stack() {
 template <size_t _Size = 4>
 void test_queue() {
   puts("Queue:");
-  Queue<int, _Size> queue;
+  Queue<int> queue;
   for (auto x: {0, 1, 2, 3})
     queue.enqueue(1 << x);
 
@@ -68,13 +69,13 @@ void test_heap() {
   puts("Heap:");
 
   puts("Merging..");
-  BinaryHeap<int> bheap;
+  Binary_Heap<int> bheap;
   for (int x = 0; x < _Size; x++) {
-    bheap.insert(1 << x);
+    bheap.insert_item(1 << x);
   }
-  BinaryHeap<int> maxheap([](int a, int b) { return a > b; });
+  Binary_Heap<int> maxheap([](int a, int b) { return a > b; });
   for (int x = 0; x < _Size; x++) {
-    maxheap.insert(-(1 << x));
+    maxheap.insert_item(-(1 << x));
   }
 
   bheap.merge(maxheap);
@@ -85,9 +86,9 @@ void test_heap() {
   puts("");
 
   puts("Replacing..");
-  bheap.insert(1);
+  bheap.insert_item(1);
   for (int x = 1; x < _Size; x++) {
-    bheap.insert(x % 2 ? 1 << (x + 1) : 1 << (x - 1));
+    bheap.insert_item(x % 2 ? 1 << (x + 1) : 1 << (x - 1));
   }
   print_array(bheap.view_data(), _Size);
 
@@ -108,4 +109,16 @@ void test_sort() {
   print_array(&data[0], _Size, TYPE_NAME(_SortingAlgorithm));
   _SortingAlgorithm::sort(&data.front(), _Size);
   print_array(&data[0], _Size);
+}
+
+template <size_t _Size = 15>
+void test_BST() {
+  BST<int> tree;
+  for (auto x: {4, 2, 6, 1, 3, 5, 7}) {
+    tree.insert_item(x);
+  }
+
+  tree.root->inorder([](int x) {
+    std::cout << x << std::endl;
+  });
 }
