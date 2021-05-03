@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 
+#include "algorithms/Binary_Search.hpp"
 #include "data-structures/BST.hpp"
 #include "data-structures/Heap.hpp"
 #include "data-structures/Queue.hpp"
@@ -121,4 +122,21 @@ void test_BST() {
   tree.root->inorder([](int x) {
     std::cout << x << std::endl;
   });
+}
+
+template <size_t _Size = 15>
+void test_binary_search() {
+  std::array<int, _Size> data;
+  for (int i = 0; i < _Size; i++) {
+    data[i] = 1 << i;
+  }
+
+  std::function<bool(int)> flast = [](int x) { return x <= 4; };
+  std::function<bool(int)> ffirst = [](int x) { return x > 4; };
+
+  int last = Binary_Search::find_last(&data[0], flast, 0, _Size);
+  int first = Binary_Search::find_first(&data[0], ffirst, 0, _Size);
+
+  std::printf("Binary_Search:\nlast <= 4 [%d] first > 4 [%d]\n", data[last], data[first]);
+  print_array(&data[0], _Size);
 }

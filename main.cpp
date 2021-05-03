@@ -6,8 +6,8 @@
 #include "sorting/Heap.hpp"
 #include "sorting/Insertion.hpp"
 #include "sorting/Merge.hpp"
-#include "sorting/Selection.hpp"
 #include "sorting/Quick.hpp"
+#include "sorting/Selection.hpp"
 #include "tests.hpp"
 
 int main(int, char**) {
@@ -23,6 +23,7 @@ int main(int, char**) {
     test_sort<Counting>();
     test_sort<Quick<int>>();
     test_BST();
+    test_binary_search();
 
   } catch (const char* errmsg) {
     std::cerr << errmsg << std::endl;
