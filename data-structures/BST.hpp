@@ -16,25 +16,24 @@ class BST {
   const predicate_t predicate;
 
   Node find_successor(Node node) {
-    // // Minimum of right subtree
-    // Node successor = node->right;
-    // Node minimum = node->right;
-    // while (minimum) {
-    //   successor = minimum;
-    //   minimum = minimum->left;
-    // }
+    // Minimum of right subtree
+    Node successor = node->right;
+    Node minimum = node->right;
+    while (minimum) {
+      successor = minimum;
+      minimum = minimum->left;
+    }
 
-    // if (successor != nullptr) return successor;
+    if (successor != nullptr) return successor;
 
-    // // First parent of a left child
-    // Node child = node;
-    // successor = node;
-    // while (occupied[successor]) {
-    //   successor = child->parent;
-    //   if (successor->left == child) return successor;
-
-    //   child = successor;
-    // }
+    // First parent of a left child
+    Node child = node;
+    successor = node;
+    while (successor) {
+      if (successor->left == child) return successor;
+      successor = child->parent;
+      child = successor;
+    }
 
     return nullptr;
   }
@@ -82,7 +81,17 @@ public:
 
   void delete_item(_Ty item) {
     Node node = find_item(item);
-    Node successor = find_successor();
+    if (node == nullptr) return;
+
+    Node successor = find_successor(node);
+    while (successor) {
+      node->item = successor->item;
+      node = successor;
+      successor = find_successor(node);
+    }
+
+    Node& parent_handle = node->parent->left == node ? node->parent->left : node->parent->right;
+    parent_handle = node->left;
   }
 
   bool empty() {

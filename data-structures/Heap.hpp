@@ -5,7 +5,7 @@
 #include "Binary_Tree.hpp"
 
 template <class _Ty = int, int _Cap = 1 << 10>
-class Binary_Heap : public BT_Array<_Ty> {
+class Binary_Heap : public BT_Array<> {
   using predicate_t = std::function<bool(_Ty, _Ty)>;
   std::array<_Ty, _Cap> data;
 

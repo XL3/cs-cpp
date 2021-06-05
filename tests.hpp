@@ -115,13 +115,25 @@ void test_sort() {
 template <size_t _Size = 15>
 void test_BST() {
   BST<int> tree;
-  for (auto x: {4, 2, 6, 1, 3, 5, 7}) {
+  for (auto x: {128, 8, 2048, 2, 32, 1, 4, 16, 64, 512, 8192, 256, 1024, 4096, 16384}) {
     tree.insert_item(x);
   }
 
-  tree.root->inorder([](int x) {
-    std::cout << x << std::endl;
+  int sorted[_Size];
+
+  auto itr = sorted;
+  tree.root->inorder([&](int x) {
+    *(itr++) = x;
   });
+  print_array(sorted, _Size, "BST");
+
+  tree.delete_item(8);
+
+  itr = sorted;
+  tree.root->inorder([&](int x) {
+    *(itr++) = x;
+  });
+  print_array(sorted, _Size-1, "delete(8)");
 }
 
 template <size_t _Size = 15>

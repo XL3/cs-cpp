@@ -53,7 +53,7 @@ struct BT_Node {
 };
 
 // Contains utility functions for array-based Binary Tree implementations
-template <class _Ty>
+template <int _magic_number=0>
 class BT_Array {
 protected:
   static int parent(int i) {
