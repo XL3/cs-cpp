@@ -3,7 +3,7 @@
 
 namespace Binary_Search {
 /**
- * Finds the last element satisifying the predicate in a sorted sequence
+ * Finds the last element satisfying the predicate in a sorted sequence
  * @return Where the element should be placed to keep the sequence sorted
  */
 template <class T = int>
@@ -28,7 +28,7 @@ int find_last(T* data, std::function<bool(T)> predicate, int START, int END) {
 }
 
 /**
- * Finds the first element satisifying the predicate in a sorted sequence
+ * Finds the first element satisfying the predicate in a sorted sequence
  * @return Where the element should be placed to keep the sequence sorted
  */
 template <class T = int>
