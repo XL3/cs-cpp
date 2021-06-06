@@ -5,11 +5,11 @@
 
 using index_t = unsigned long;
 
-template <class _Ty>
+template <class T>
 class Merge {
-  using predicate_t = std::function<bool(_Ty, _Ty)>;
+  using predicate_t = std::function<bool(T, T)>;
 
-  static void merge(_Ty *data, index_t START, index_t MID, index_t END, predicate_t predicate, std::vector<_Ty> &merge_array) {
+  static void merge(T *data, index_t START, index_t MID, index_t END, predicate_t predicate, std::vector<T> &merge_array) {
     std::copy(data + START, data + END, merge_array.begin() + START);
     index_t left_index = START;
     index_t right_index = MID;
@@ -33,7 +33,7 @@ class Merge {
     }
   }
 
-  static void split(_Ty *data, index_t START, index_t END, predicate_t predicate, std::vector<_Ty> &merge_array) {
+  static void split(T *data, index_t START, index_t END, predicate_t predicate, std::vector<T> &merge_array) {
     if (END - START <= 1) return;
 
     const index_t MID = START + (END - START) / 2;
@@ -46,8 +46,8 @@ class Merge {
 public:
   // Out-of-place
   static void sort(
-    _Ty *data, size_t SIZE, predicate_t predicate = [](_Ty a, _Ty b) { return a < b; }) {
-    std::vector<_Ty> merge_array(SIZE);
+    T *data, size_t SIZE, predicate_t predicate = [](T a, T b) { return a < b; }) {
+    std::vector<T> merge_array(SIZE);
     split(data, 0, SIZE, predicate, merge_array);
   }
 };

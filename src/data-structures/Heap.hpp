@@ -4,10 +4,10 @@
 
 #include "Binary_Tree.hpp"
 
-template <class _Ty = int, int _Cap = 1 << 10>
+template <class T = int, int _Cap = 1 << 10>
 class Binary_Heap : public BT_Array<> {
-  using predicate_t = std::function<bool(_Ty, _Ty)>;
-  std::array<_Ty, _Cap> data;
+  using predicate_t = std::function<bool(T, T)>;
+  std::array<T, _Cap> data;
 
   // Position of the next item to be inserted
   int size;
@@ -40,7 +40,7 @@ class Binary_Heap : public BT_Array<> {
     }
   }
 
-  int find_item(_Ty item) {
+  int find_item(T item) {
     int node = 0;
     while (lchild(node) < size) {
       // The item cannot exist in this level
@@ -65,16 +65,16 @@ class Binary_Heap : public BT_Array<> {
   }
 
 public:
-  Binary_Heap(predicate_t _predicate = [](_Ty a, _Ty b) { return a < b; }) : predicate(_predicate) {
+  Binary_Heap(predicate_t _predicate = [](T a, T b) { return a < b; }) : predicate(_predicate) {
     size = 0;
   }
 
-  _Ty& peek() const {
+  T& peek() const {
     if (size == 0) throw "Tried to peek an empty heap";
     return data[0];
   }
 
-  void insert_item(_Ty item) {
+  void insert_item(T item) {
     if (size == _Cap) throw "Tried to insert into a full heap";
     int node = size++;
     data[node] = item;
@@ -82,10 +82,10 @@ public:
     reheap_up(node);
   }
 
-  _Ty extract_top() {
+  T extract_top() {
     if (size == 0) throw "Tried to extract from an empty heap";
     std::swap(data[--size], data[0]);
-    _Ty item = data[size];
+    T item = data[size];
 
     reheap_down(0);
 
@@ -96,7 +96,7 @@ public:
    * Merges another heap into the current heap if there's enough space
    */
   template <int _h_Cap>
-  void merge(Binary_Heap<_Ty, _h_Cap> bheap) {
+  void merge(Binary_Heap<T, _h_Cap> bheap) {
     if (this->size + bheap.size > _Cap)
       throw "Tried to merge a heap with not enough available space";
 
@@ -113,7 +113,7 @@ public:
   }
 
   // increase/decrease_key
-  void replace_item(_Ty item, _Ty replace) {
+  void replace_item(T item, T replace) {
     if (size == 0) throw "Tried to replace an item inside an empty heap";
     int node = find_item(item);
     if (node < 0) return;
@@ -124,7 +124,7 @@ public:
     reheap_up(node);
   }
 
-  void delete_item(_Ty item) {
+  void delete_item(T item) {
     if (size == 0) throw "Tried to delete an item inside an empty heap";
     int node = find_item(item);
     if (node < 0) return;
@@ -139,7 +139,7 @@ public:
     return size == 0;
   }
 
-  _Ty* view_data() {
+  T* view_data() {
     return &data[0];
   }
 };

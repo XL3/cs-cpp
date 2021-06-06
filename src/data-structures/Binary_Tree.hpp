@@ -1,15 +1,15 @@
 #pragma once
 
 // Binary tree implementation using pointers
-template <class _Ty>
+template <class T>
 struct BT_Node {
-  _Ty item;
+  T item;
   BT_Node* left;
   BT_Node* right;
   BT_Node* parent;
 
-  void insert_child(_Ty item, bool _left) {
-    BT_Node* new_node = new BT_Node{item};
+  void insert_child(T _item, bool _left) {
+    BT_Node* new_node = new BT_Node{_item};
     if (_left)
       left = new_node;
     else
@@ -53,7 +53,7 @@ struct BT_Node {
 };
 
 // Contains utility functions for array-based Binary Tree implementations
-template <int _magic_number=0>
+template <int _ONCE = 0>
 class BT_Array {
 protected:
   static int parent(int i) {

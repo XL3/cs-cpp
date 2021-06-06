@@ -6,11 +6,11 @@
 
 using index_t = unsigned long;
 
-template <class _Ty>
+template <class T>
 class Quick {
-  using predicate_t = std::function<bool(_Ty, _Ty)>;
+  using predicate_t = std::function<bool(T, T)>;
 
-  static int partition(_Ty *data, index_t START, index_t END, predicate_t predicate) {
+  static int partition(T *data, index_t START, index_t END, predicate_t predicate) {
     index_t pi = START;
 
     // Grow a region of elements strictly smaller than the pivot element,
@@ -26,7 +26,7 @@ class Quick {
     return pi;
   }
 
-  static void divide(_Ty *data, index_t START, index_t END, predicate_t predicate) {
+  static void divide(T *data, index_t START, index_t END, predicate_t predicate) {
     if (END - START <= 1) return;
 
     index_t pi = START + rand() % (END - START);
@@ -40,7 +40,7 @@ class Quick {
 public:
   // In-place
   static void sort(
-    _Ty *data, size_t SIZE, predicate_t predicate = [](_Ty a, _Ty b) { return a < b; }) {
+    T *data, size_t SIZE, predicate_t predicate = [](T a, T b) { return a < b; }) {
     divide(data, 0, SIZE, predicate);
   }
 };

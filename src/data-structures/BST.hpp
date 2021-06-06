@@ -4,10 +4,10 @@
 
 #include "Binary_Tree.hpp"
 
-template <class _Ty = int, int _Cap = 1 << 10>
+template <class T = int, int _Cap = 1 << 10>
 class BST {
-  using predicate_t = std::function<bool(_Ty, _Ty)>;
-  using Node = BT_Node<_Ty>*;
+  using predicate_t = std::function<bool(T, T)>;
+  using Node = BT_Node<T>*;
 
   // Total number of elements currently in the binary search tree
   int size;
@@ -44,15 +44,15 @@ protected:
 
 public:
   Node root;
-  BST(predicate_t _predicate = [](_Ty a, _Ty b) { return a < b; }) : predicate(_predicate) {
+  BST(predicate_t _predicate = [](T a, T b) { return a < b; }) : predicate(_predicate) {
     size = 0;
     root = nullptr;
   }
 
-  void insert_item(_Ty item) {
+  void insert_item(T item) {
     if (size == _Cap) throw "Tried to insert into a full heap";
     if (!root) {
-      root = new BT_Node<_Ty>{item};
+      root = new BT_Node<T>{item};
       return;
     }
 
@@ -67,7 +67,7 @@ public:
     size++;
   }
 
-  Node find_item(_Ty item) {
+  Node find_item(T item) {
     Node parent;
     Node child = root;
     while (child) {
@@ -79,7 +79,7 @@ public:
     return nullptr;
   }
 
-  void delete_item(_Ty item) {
+  void delete_item(T item) {
     Node node = find_item(item);
     if (node == nullptr) return;
 

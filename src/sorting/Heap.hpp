@@ -4,12 +4,12 @@
 
 using index_t = unsigned long;
 
-template <class _Ty>
+template <class T>
 class Heap {
-  using predicate_t = std::function<bool(_Ty, _Ty)>;
+  using predicate_t = std::function<bool(T, T)>;
 
 private:
-  static void reheap_down(_Ty *data, int node, int size, predicate_t predicate) {
+  static void reheap_down(T *data, int node, int size, predicate_t predicate) {
     auto parent = [](int i) {
       return i > 0 ? (i - 1) / 2 : 0;
     };
@@ -40,7 +40,7 @@ private:
 public:
   // In-place
   static void sort(
-    _Ty *data, size_t SIZE, predicate_t predicate = [](_Ty a, _Ty b) { return a < b; }) {
+    T *data, size_t SIZE, predicate_t predicate = [](T a, T b) { return a < b; }) {
     for (index_t i = SIZE / 2 - 1; i + 1 > 0; i--) {
       reheap_down(data, i, SIZE, predicate);
     }

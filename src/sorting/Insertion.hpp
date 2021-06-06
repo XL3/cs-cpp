@@ -4,18 +4,18 @@
 
 using index_t = unsigned long;
 
-template <class _Ty>
+template <class T>
 class Insertion {
-  using predicate_t = std::function<bool(_Ty, _Ty)>;
+  using predicate_t = std::function<bool(T, T)>;
 
 public:
   // In-place
   static void sort(
-    _Ty *data,
+    T *data,
     size_t SIZE,
-    predicate_t predicate = [](_Ty a, _Ty b) { return a < b; }) {
+    predicate_t predicate = [](T a, T b) { return a < b; }) {
     for (index_t i = 1; i < SIZE; i++) {
-      _Ty item = data[i];
+      T item = data[i];
       index_t j = i;
 
       for (; j > 0; j--) {

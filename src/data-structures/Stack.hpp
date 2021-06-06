@@ -1,9 +1,9 @@
 #pragma once
 #include <array>
 
-template <class _Ty = int, int _Cap = 1 << 10>
+template <class T = int, int _Cap = 1 << 10>
 class Stack {
-  std::array<_Ty, _Cap> data;
+  std::array<T, _Cap> data;
   int top;
 
 public:
@@ -11,17 +11,17 @@ public:
     top = -1;
   }
 
-  _Ty& peek() const {
+  T& peek() const {
     if (top < 0) throw "Tried to peek an empty stack";
     return data[top];
   }
 
-  void push(_Ty item) {
+  void push(T item) {
     if (top + 1 == _Cap) throw "Tried to push into a full stack";
     data[++top] = item;
   }
 
-  _Ty pop() {
+  T pop() {
     if (top < 0) throw "Tried to pop from an empty stack";
     return data[top--];
   }

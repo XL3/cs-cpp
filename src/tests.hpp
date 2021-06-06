@@ -17,8 +17,8 @@
 #include "data-structures/Queue.hpp"
 #include "data-structures/Stack.hpp"
 
-template <class _Ty>
-void print_array(_Ty *data, size_t SIZE, std::string label = "") {
+template <class T>
+void print_array(T *data, size_t SIZE, std::string label = "") {
   if (!label.empty()) {
     std::cout << label << std::endl;
   }

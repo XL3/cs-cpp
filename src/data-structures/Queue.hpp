@@ -1,9 +1,9 @@
 #pragma once
 #include <array>
 
-template <class _Ty = int, int _Cap = 1 << 10>
+template <class T = int, int _Cap = 1 << 10>
 class Queue {
-  std::array<_Ty, _Cap> data;
+  std::array<T, _Cap> data;
 
   // Position of the next item to be dequeued
   int front;
@@ -17,21 +17,21 @@ public:
     back = 0;
   }
 
-  _Ty& peek_front() const {
+  T& peek_front() const {
     if (front < 0) throw "Tried to peek an empty queue";
     return data[front];
   }
 
-  void enqueue(_Ty item) {
+  void enqueue(T item) {
     if (back == front) throw "Tried to enqueue into a full queue";
     if (front < 0) front = back;
     data[back++] = item;
     back %= _Cap;
   }
 
-  _Ty dequeue() {
+  T dequeue() {
     if (front < 0) throw "Tried to dequeue from an empty queue";
-    _Ty item = data[front++];
+    T item = data[front++];
     front %= _Cap;
 
     // If the queue has been emptied

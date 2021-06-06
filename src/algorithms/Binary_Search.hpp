@@ -6,8 +6,8 @@ namespace Binary_Search {
  * Finds the last element satisifying the predicate in a sorted sequence
  * @return Where the element should be placed to keep the sequence sorted
  */
-template <class _Ty = int>
-int find_last(_Ty* data, std::function<bool(_Ty)> predicate, int START, int END) {
+template <class T = int>
+int find_last(T* data, std::function<bool(T)> predicate, int START, int END) {
   int left, right, mid;
   left = START;
   right = END - 1;
@@ -31,8 +31,8 @@ int find_last(_Ty* data, std::function<bool(_Ty)> predicate, int START, int END)
  * Finds the first element satisifying the predicate in a sorted sequence
  * @return Where the element should be placed to keep the sequence sorted
  */
-template <class _Ty = int>
-int find_first(_Ty* data, std::function<bool(_Ty)> predicate, int START, int END) {
+template <class T = int>
+int find_first(T* data, std::function<bool(T)> predicate, int START, int END) {
   int left, right, mid;
   left = START;
   right = END - 1;
