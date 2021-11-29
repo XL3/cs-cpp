@@ -3,82 +3,82 @@
 // Binary tree implementation using pointers
 template <class T>
 struct BT_Node {
-  T item;
-  BT_Node* left;
-  BT_Node* right;
-  BT_Node* parent;
+    T item;
+    BT_Node* left;
+    BT_Node* right;
+    BT_Node* parent;
 
-  void insert_child(T _item, bool _left) {
-    BT_Node* new_node = new BT_Node{_item};
-    if (_left)
-      left = new_node;
-    else
-      right = new_node;
+    void insert_child(T _item, bool _left) {
+        BT_Node* new_node = new BT_Node{_item};
+        if (_left)
+            left = new_node;
+        else
+            right = new_node;
 
-    new_node->parent = this;
-  }
+        new_node->parent = this;
+    }
 
-  template <typename _F>
-  void inorder(_F func) {
-    if (left != nullptr)
-      left->inorder(func);
+    template <typename _F>
+    void inorder(_F func) {
+        if (left != nullptr)
+            left->inorder(func);
 
-    func(item);
+        func(item);
 
-    if (right != nullptr)
-      right->inorder(func);
-  }
+        if (right != nullptr)
+            right->inorder(func);
+    }
 
-  template <typename _F>
-  void preorder(_F func) {
-    func(item);
+    template <typename _F>
+    void preorder(_F func) {
+        func(item);
 
-    if (left != nullptr)
-      left->inorder(func);
+        if (left != nullptr)
+            left->inorder(func);
 
-    if (right != nullptr)
-      right->inorder(func);
-  }
+        if (right != nullptr)
+            right->inorder(func);
+    }
 
-  template <typename _F>
-  void postorder(_F func) {
-    if (left != nullptr)
-      left->inorder(func);
+    template <typename _F>
+    void postorder(_F func) {
+        if (left != nullptr)
+            left->inorder(func);
 
-    if (right != nullptr)
-      right->inorder(func);
+        if (right != nullptr)
+            right->inorder(func);
 
-    func(item);
-  }
+        func(item);
+    }
 };
 
 // Contains utility functions for array-based Binary Tree implementations
 template <int _ONCE = 0>
 class BT_Array {
 protected:
-  static int parent(int i) {
-    return i > 0 ? (i - 1) / 2 : 0;
-  }
+    static int parent(int i) {
+        return i > 0 ? (i - 1) / 2 : 0;
+    }
 
-  static int lchild(int i) {
-    return (2 * i) + 1;
-  }
+    static int lchild(int i) {
+        return (2 * i) + 1;
+    }
 
-  static int rchild(int i) {
-    return (2 * i) + 2;
-  }
+    static int rchild(int i) {
+        return (2 * i) + 2;
+    }
 
-  /**
-   * Every sibling in a level = (fs+1) + c [-1, 0, 1, 2, ...]
-   * First sibling = 2^(level) - 1
-   */
-  static int fsibling(int i) {
-    i += 1;
+    /**
+     * Every sibling in a level = (fs+1) + c [-1, 0, 1, 2, ...]
+     * First sibling = 2^(level) - 1
+     */
+    static int fsibling(int i) {
+        i += 1;
 
-    // Zero-based highest exponent
-    int exp = 0;
-    while (i >>= 1) exp++;
+        // Zero-based highest exponent
+        int exp = 0;
+        while (i >>= 1) exp++;
 
-    return (1 << exp) - 1;
-  }
+        return (1 << exp) - 1;
+    }
 };

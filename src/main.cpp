@@ -11,22 +11,22 @@
 #include "tests.hpp"
 
 int main(int, char**) {
-  try {
-    test_stack();
-    test_queue();
-    test_heap();
-    test_sort<Selection<int>>();
-    test_sort<Insertion<int>>();
-    test_sort<Bubble<int>>();
-    test_sort<Heap<int>>();
-    test_sort<Merge<int>>();
-    test_sort<Counting>();
-    test_sort<Quick<int>>();
-    test_BST();
-    test_binary_search();
+    try {
+        test_stack();
+        test_queue();
+        test_heap();
+        test_sort<Selection<int>>();
+        test_sort<Insertion<int>>();
+        test_sort<Bubble<int>>();
+        test_sort<Heap<int>>();
+        test_sort<Merge<int>>();
+        test_sort<Counting>();
+        test_sort<Quick<int>>();
+        test_BST();
+        test_binary_search();
 
-  } catch (const char* errmsg) {
-    std::cerr << errmsg << std::endl;
-  }
-  return 0;
+    } catch (const char* errmsg) {
+        std::cerr << errmsg << std::endl;
+    }
+    return 0;
 }

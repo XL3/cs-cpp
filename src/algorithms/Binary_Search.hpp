@@ -8,23 +8,23 @@ namespace Binary_Search {
  */
 template <class T = int>
 int find_last(T* data, std::function<bool(T)> predicate, int START, int END) {
-  int left, right, mid;
-  left = START;
-  right = END - 1;
+    int left, right, mid;
+    left = START;
+    right = END - 1;
 
-  while (left < right) {
-    // Ceil (x / y) = (x + y - 1) / y
-    mid = left + (right - left + 1) / 2;
+    while (left < right) {
+        // Ceil (x / y) = (x + y - 1) / y
+        mid = left + (right - left + 1) / 2;
 
-    if (predicate(data[mid])) {
-      left = mid;
+        if (predicate(data[mid])) {
+            left = mid;
+        }
+        else {
+            right = mid - 1;
+        }
     }
-    else {
-      right = mid - 1;
-    }
-  }
 
-  return left;
+    return left;
 }
 
 /**
@@ -33,22 +33,22 @@ int find_last(T* data, std::function<bool(T)> predicate, int START, int END) {
  */
 template <class T = int>
 int find_first(T* data, std::function<bool(T)> predicate, int START, int END) {
-  int left, right, mid;
-  left = START;
-  right = END - 1;
+    int left, right, mid;
+    left = START;
+    right = END - 1;
 
-  while (left < right) {
-    // Floor (x / y) = x / y
-    mid = left + (right - left) / 2;
+    while (left < right) {
+        // Floor (x / y) = x / y
+        mid = left + (right - left) / 2;
 
-    if (predicate(data[mid])) {
-      right = mid;
+        if (predicate(data[mid])) {
+            right = mid;
+        }
+        else {
+            left = mid + 1;
+        }
     }
-    else {
-      left = mid + 1;
-    }
-  }
 
-  return left;
+    return left;
 }
 }  // namespace Binary_Search
