@@ -2,11 +2,12 @@
 #include <array>
 #include <functional>
 #include <vector>
-
-using index_t = unsigned long;
-using T = int;
+#include <stddef.h>
 
 class Counting {
+    using index_t = unsigned long;
+
+    template <class T>
     static std::vector<T> build_cdf(T *data, size_t SIZE) {
         T max_item = data[0];
         for (index_t i = 1; i < SIZE; i++) {
@@ -24,6 +25,7 @@ class Counting {
 
 public:
     // Out-of-place
+    template <class T>
     static void sort(T *data, size_t SIZE) {
         auto cdf = build_cdf(data, SIZE);
         std::vector<T> sorted(SIZE, 0);

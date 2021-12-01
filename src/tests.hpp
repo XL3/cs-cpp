@@ -1,13 +1,4 @@
 #pragma once
-
-#if defined(__GNUC__) || defined(__GNUG__)
-#include <cxxabi.h>
-#define TYPE_NAME(var) (abi::__cxa_demangle(typeid(var).name(), NULL, NULL, NULL))
-#else
-#define TYPE_NAME(var) (typeid(var).name())
-#endif
-
-#include <algorithm>
 #include <iostream>
 #include <string>
 
@@ -16,21 +7,9 @@
 #include "data-structures/Heap.hpp"
 #include "data-structures/Queue.hpp"
 #include "data-structures/Stack.hpp"
+#include "utility/print.hpp"
 
 using index_t = unsigned long;
-
-template <class T>
-void print_array(T *data, size_t SIZE, std::string label = "") {
-    if (!label.empty()) {
-        std::cout << label << std::endl;
-    }
-    for (index_t i = 0; i < SIZE; i++) {
-        std::cout << "\r[ ";
-        std::cout << std::string(i, '\t');
-        std::cout << data[i] << " ";
-    }
-    std::cout << "]" << std::endl;
-}
 
 template <size_t _Size = 5>
 void test_stack() {
@@ -99,19 +78,6 @@ void test_heap() {
         bheap.replace_item(1 << x, -(1 << x));
     }
     print_array(bheap.view_data(), _Size);
-}
-
-template <class _SortingAlgorithm, size_t _Size = 16>
-void test_sort() {
-    std::array<int, _Size> data;
-    for (int i = 0; i < _Size; i++) {
-        data[i] = 1 << i;
-    }
-    std::random_shuffle(data.begin(), data.end());
-
-    print_array(&data[0], _Size, TYPE_NAME(_SortingAlgorithm));
-    _SortingAlgorithm::sort(&data.front(), _Size);
-    print_array(&data[0], _Size);
 }
 
 template <size_t _Size = 15>

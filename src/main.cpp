@@ -8,6 +8,8 @@
 #include "sorting/Merge.hpp"
 #include "sorting/Quick.hpp"
 #include "sorting/Selection.hpp"
+#include "sorting/SortingAlgorithm.hpp"
+#include "data-structures/BST.hpp"
 #include "tests.hpp"
 
 int main(int, char**) {
@@ -15,13 +17,13 @@ int main(int, char**) {
         test_stack();
         test_queue();
         test_heap();
-        test_sort<Selection<int>>();
-        test_sort<Insertion<int>>();
-        test_sort<Bubble<int>>();
-        test_sort<Heap<int>>();
-        test_sort<Merge<int>>();
+        test_sort<Insertion>();
+        test_sort<Selection>();
+        test_sort<Bubble>();
+        test_sort<Heap>();
         test_sort<Counting>();
-        test_sort<Quick<int>>();
+        test_sort<Merge>();
+        test_sort<Quick>();
         test_BST();
         test_binary_search();
 

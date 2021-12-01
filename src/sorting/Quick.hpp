@@ -1,16 +1,9 @@
 #pragma once
-#include <array>
-#include <cstdlib>
-#include <functional>
-#include <vector>
+#include "SortingAlgorithm.hpp"
 
-using index_t = unsigned long;
-
-template <class T>
-class Quick {
-    using predicate_t = std::function<bool(T, T)>;
-
-    static int partition(T *data, index_t START, index_t END, predicate_t predicate) {
+class Quick : public SortingAlgorithm {
+    template <class T>
+    static int partition(T *data, index_t START, index_t END, predicate_t<T> predicate) {
         index_t pi = START;
 
         // Grow a region of elements strictly smaller than the pivot element,
@@ -26,7 +19,8 @@ class Quick {
         return pi;
     }
 
-    static void divide(T *data, index_t START, index_t END, predicate_t predicate) {
+    template <class T>
+    static void divide(T *data, index_t START, index_t END, predicate_t<T> predicate) {
         if (END - START <= 1) return;
 
         index_t pi = START + rand() % (END - START);
@@ -39,8 +33,8 @@ class Quick {
 
 public:
     // In-place
-    static void sort(
-        T *data, size_t SIZE, predicate_t predicate = [](T a, T b) { return a < b; }) {
+    template <class T>
+    static void sort(T *data, size_t SIZE, predicate_t<T> predicate = predicate_lt<T>) {
         divide(data, 0, SIZE, predicate);
     }
 };

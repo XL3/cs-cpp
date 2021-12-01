@@ -1,19 +1,11 @@
 #pragma once
-#include <array>
-#include <functional>
+#include "SortingAlgorithm.hpp"
 
-using index_t = unsigned long;
-
-template <class T>
-class Insertion {
-    using predicate_t = std::function<bool(T, T)>;
-
+class Insertion : public SortingAlgorithm {
 public:
     // In-place
-    static void sort(
-        T *data,
-        size_t SIZE,
-        predicate_t predicate = [](T a, T b) { return a < b; }) {
+    template <class T>
+    static void sort(T *data, size_t SIZE, predicate_t<T> predicate = predicate_lt<T>) {
         for (index_t i = 1; i < SIZE; i++) {
             T item = data[i];
             index_t j = i;
@@ -22,9 +14,8 @@ public:
                 if (predicate(item, data[j - 1])) {
                     data[j] = data[j - 1];
                 }
-                else {
+                else
                     break;
-                }
             }
             data[j] = item;
         }

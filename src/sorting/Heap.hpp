@@ -1,15 +1,10 @@
 #pragma once
-#include <array>
-#include <functional>
+#include "SortingAlgorithm.hpp"
 
-using index_t = unsigned long;
-
-template <class T>
-class Heap {
-    using predicate_t = std::function<bool(T, T)>;
-
+class Heap : public SortingAlgorithm {
 private:
-    static void reheap_down(T *data, int node, int size, predicate_t predicate) {
+    template <class T>
+    static void reheap_down(T *data, int node, int size, predicate_t<T> predicate) {
         auto parent = [](int i) {
             return i > 0 ? (i - 1) / 2 : 0;
         };
@@ -39,8 +34,8 @@ private:
 
 public:
     // In-place
-    static void sort(
-        T *data, size_t SIZE, predicate_t predicate = [](T a, T b) { return a < b; }) {
+    template <class T>
+    static void sort(T *data, size_t SIZE, predicate_t<T> predicate = predicate_lt<T>) {
         for (index_t i = SIZE / 2 - 1; i + 1 > 0; i--) {
             reheap_down(data, i, SIZE, predicate);
         }

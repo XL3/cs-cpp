@@ -7,6 +7,8 @@
 template <class T = int, int _Cap = 1 << 10>
 class Binary_Heap : public BT_Array<> {
     using predicate_t = std::function<bool(T, T)>;
+    static const inline predicate_t default_predicate = [](T a, T b) { return a < b; };
+
     std::array<T, _Cap> data;
 
     // Position of the next item to be inserted
@@ -65,7 +67,7 @@ class Binary_Heap : public BT_Array<> {
     }
 
 public:
-    Binary_Heap(predicate_t _predicate = [](T a, T b) { return a < b; }) : predicate(_predicate) {
+    Binary_Heap(predicate_t _predicate = default_predicate) : predicate(_predicate) {
         size = 0;
     }
 

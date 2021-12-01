@@ -1,15 +1,10 @@
 #pragma once
-#include <array>
-#include <functional>
 #include <vector>
+#include "SortingAlgorithm.hpp"
 
-using index_t = unsigned long;
-
-template <class T>
-class Merge {
-    using predicate_t = std::function<bool(T, T)>;
-
-    static void merge(T *data, index_t START, index_t MID, index_t END, predicate_t predicate, std::vector<T> &merge_array) {
+class Merge : public SortingAlgorithm {
+    template <class T>
+    static void merge(T *data, index_t START, index_t MID, index_t END, predicate_t<T> predicate, std::vector<T> &merge_array) {
         std::copy(data + START, data + END, merge_array.begin() + START);
         index_t left_index = START;
         index_t right_index = MID;
@@ -33,7 +28,8 @@ class Merge {
         }
     }
 
-    static void split(T *data, index_t START, index_t END, predicate_t predicate, std::vector<T> &merge_array) {
+    template <class T>
+    static void split(T *data, index_t START, index_t END, predicate_t<T> predicate, std::vector<T> &merge_array) {
         if (END - START <= 1) return;
 
         const index_t MID = START + (END - START) / 2;
@@ -45,8 +41,8 @@ class Merge {
 
 public:
     // Out-of-place
-    static void sort(
-        T *data, size_t SIZE, predicate_t predicate = [](T a, T b) { return a < b; }) {
+    template <class T>
+    static void sort(T *data, size_t SIZE, predicate_t<T> predicate = predicate_lt<T>) {
         std::vector<T> merge_array(SIZE);
         split(data, 0, SIZE, predicate, merge_array);
     }
